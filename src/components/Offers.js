@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import './offers.css'
+
 
 const Section=({data,isVisible,setIsVisible,setIsInVisible})=>{
     
     return(
-        <div className="section">
-            <h1>{data.title}</h1>
+        <div className="m-3">
+            <h1 className='text-xl font-bold'>{data.title}</h1>
              { isVisible ?
-            <button onClick={()=>{setIsInVisible()}}>Hide</button>
+            <button className='p-1 m-1 bg-orange-100 rounded-lg font-semibold' onClick={()=>{setIsInVisible()}}>Hide</button>
             :
-            <button onClick={()=>{setIsVisible()}}>Show</button>
+            <button className='p-1 m-1 bg-orange-100 rounded-lg font-semibold'  onClick={()=>{setIsVisible()}}>Show</button>
              }
             {isVisible && <p>{data.description}</p>}
             

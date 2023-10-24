@@ -4,6 +4,7 @@ import { StrictMode } from 'react';
 import  { appRouter } from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
+import 'tailwindcss/tailwind.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

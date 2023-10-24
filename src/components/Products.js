@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import FoodCard from "./FoodCard"
 import Loader from "./Loader"
-import './products.css'
+
 import { Link } from "react-router-dom"
 import { filterData } from "../content"
 
@@ -79,19 +79,19 @@ const Products = () => {
         : (
             <>
 
-                <div className='search-container'>
-                    <input placeholder='Enter name of restaurant' value={searchText}
+                <div className='mt-0.5 ml-12 pl-4 '>
+                    <input className="bg-white text-md  active:bg-gray-300 p-1.5 " placeholder='Enter name of restaurant' value={searchText}
                         onChange={(e) => {
                             setSearchText(e.target.value)
                         }} ></input>
 
-                    <button onClick={() => {
+                    <button className="text-white bg-black p-1.5 ml-0.5 text-md rounded-lg  hover:bg-gray-300 hover:text-black " onClick={() => {
                         const data = filterData(searchText, dataList)
                         setFilteredDataList(data)
                     }
                     } >Search</button>
                 </div>
-                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                <div className="flex flex-wrap " >
                     {/* <FoodCard data={list[0]} />
        <FoodCard data={list[1]} />
        <FoodCard data={list[2]} />

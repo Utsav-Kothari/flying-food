@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import Loader from "./Loader"
-import './menu.css';
+
 import useMenu from "../utils/useMenu";
 import { useDispatch } from "react-redux";
 import { addItem } from "../utils/cartSlice";
@@ -19,26 +19,32 @@ const Menu = () => {
         :
         (
             <>
-                <div className="menu-header">
-                    <div>
-                        <h1>{restro?.name}</h1>
-                        <div className="menu-titleinfo">{restro?.cuisines.join(", ")}</div>
-                        <div className="menu-titleinfo">{restro?.avgRating} stars</div>
-                        <div className="menu-titleinfo">{restro?.areaName}, {restro?.sla?.lastMileTravelString}</div>
+                <div className="flex flex-wrap bg-gray-200 justify-between ">
+                    <div className="pt-7 pl-2">
+                        <h1 className="text-4xl font-bold ">{restro?.name}</h1>
+                        <div className="text-lg text-gray-500">{restro?.cuisines.join(", ")}</div>
+                        <div className="text-lg text-gray-500">{restro?.avgRating} stars</div>
+                        <div className="text-lg text-gray-500">{restro?.areaName}, {restro?.sla?.lastMileTravelString}</div>
                         <hr></hr>
-                        <div style={{ fontSize: 23 }}><b>{restro?.sla?.deliveryTime} minutes, {restro?.costForTwoMessage}</b></div>
+                        <div className="text-xl text-bold"><b>{restro?.sla?.deliveryTime} minutes, {restro?.costForTwoMessage}</b></div>
 
                     </div>
-                    <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + restro?.cloudinaryImageId} />
+                    <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + restro?.cloudinaryImageId} 
+                    className="w-64 h-52 rounded-lg my-2.5 mr-10 "/>
 
 
                 </div>
-                <div className="menu-content">
-                    <h3>Menu</h3>
-                    <ul>
-                        {menuList.map((item) => <li key={item?.card?.info?.id}><h3>{item?.card?.info?.name}</h3>
+                <div>
+                    <h3 className="text-2xl font-bold mt-1 ml-1" >Menu</h3>
+                    <ul className="flex flex-wrap">
+                        {menuList.map((item) => <li key={item?.card?.info?.id} className="m-2 p-1 w-40">
+                            <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/" + item?.card?.info?.imageId }
+                            className="rounded-lg h-36 w-42 " />
+                            <h3 className="text-lg font-bold p-1 " >{item?.card?.info?.name}</h3>
+                            <div className="text-md font-semibold"> Rs.{item?.card?.info?.price/100}</div>
+                            <div className="text-md font-medium text-yellow-600">{item?.card?.info?.itemAttribute?.vegClassifier}</div>
                             <div>
-                                <button onClick={() => handleAddItem(item)} style={{ backgroundColor: "lavender", color: "black"  }}>Add to Cart</button>
+                                <button onClick={() => handleAddItem(item)} className="p-1 m-0.5 bg-blue-200 rounded-md font-semibold ">Add to Cart</button>
                             </div>
                         </li>)}
                     </ul>

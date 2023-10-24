@@ -1,5 +1,5 @@
 import { IMG_CDN_URL } from '../content'
-import './foodcard.css'
+
 
 const FoodCard=( {cloudinaryImageId
     ,name,avgRating,cuisines,locality /*data*/})=>{
@@ -10,12 +10,12 @@ const FoodCard=( {cloudinaryImageId
 
 
     return(
-        <div className="foodcard">
-        <img src={IMG_CDN_URL + cloudinaryImageId}/>
-        <div className="foodcard-title">{name}</div>
-        <div className="foodcard-rating">{avgRating} stars</div>
-        <div className="foodcard-info">{cuisines.join(", ")}</div>
-        <div className="foodcard-info">{locality}</div>
+        <div className="flex flex-col h-inherit w-52 m-4">
+        <img src={IMG_CDN_URL + cloudinaryImageId} className='h-52 rounded-md'/>
+        <div className="font-bold text-xl m-0.5 pt-0.5">{name}</div>
+        <div className="font-bold text-lg ml-0.5">{avgRating} stars</div>
+        <div className="text-base text-gray-500 m-0.5 font-semibold ">{cuisines.join(", ")}</div>
+        <div className="text-base text-gray-500 m-0.5 font-semibold ">{locality}</div>
        
         </div>
     )
