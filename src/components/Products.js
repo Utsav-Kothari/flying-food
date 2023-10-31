@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import FoodCard from "./FoodCard"
 import Loader from "./Loader"
-
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 import { filterData } from "../content"
+import store from "../utils/store";
+import Login from './Login';
+import Modal from './Modal';
 
 // const list = [{
 //     imageId:"snrp0ayro6kyugcyne5c",
@@ -47,10 +50,11 @@ import { filterData } from "../content"
 // }]
 
 const Products = () => {
-    console.log("render");
+    
     const [searchText, setSearchText] = useState("");
     const [dataList, setDataList] = useState([]);
     const [filteredDataList, setFilteredDataList] = useState([]);
+    const[showModal,setShowModal]=useState(true)
     
     useEffect(() => {
         getDataList()
@@ -63,7 +67,7 @@ const Products = () => {
         setDataList(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
         setFilteredDataList(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     }
-    console.log(filteredDataList)
+    
     // if (filteredDataList.length===0) {
     //     return(<>
     //     <h1>No restaurant matched to your search</h1>
@@ -73,24 +77,36 @@ const Products = () => {
     //     )
 
     // }
-    
+    const userDetails=useSelector(store=>store.login.detail)
+    const handleModal=()=>{
+        setShowModal(prevState=>!prevState)
+    }
+
     if (!dataList) { return null }
     return dataList.length === 0 ? (<Loader/>)
         : (
             <>
-
-                <div className='mt-0.5 ml-12 pl-4 '>
-                    <input className="bg-white text-md  active:bg-gray-300 p-1.5 " placeholder='Enter name of restaurant' value={searchText}
+                 <div className="flex ml-4 justify-between">
+                <div className="text-3xl font-bold ml-0 p-1">Welcome {userDetails.name}! <span className="text-xl font-bold m-1 span">Search, Order, Enjoy, Repeat!</span> </div>
+               
+                <div className="font-bold text-lg text-orange-500 mt-2">Location:
+                <input type="text" defaultValue={userDetails.add} className="bg-white text-md underline rounded active:bg-gray-300 pl-1 ml-1 "
+                name="name"  />  
+                </div>
+                </div>
+                <div className='ml-4 mt-1'>
+                    <input className="bg-white text-md  active:bg-gray-300 p-2 " placeholder='Enter name of restaurant' value={searchText}
                         onChange={(e) => {
                             setSearchText(e.target.value)
                         }} ></input>
 
-                    <button className="text-white bg-black p-1.5 ml-0.5 text-md rounded-lg  hover:bg-gray-300 hover:text-black " onClick={() => {
+                    <button className="text-white bg-black p-1 ml-0.5 text-md rounded-lg  hover:bg-gray-300 hover:text-black " onClick={() => {
                         const data = filterData(searchText, dataList)
                         setFilteredDataList(data)
                     }
                     } >Search</button>
                 </div>
+               
                 <div className="flex flex-wrap " >
                     {/* <FoodCard data={list[0]} />
        <FoodCard data={list[1]} />
@@ -117,6 +133,9 @@ const Products = () => {
                             )
                         }))}
                 </div>
+                {!userDetails.status && showModal&& <Modal onClose={handleModal}>
+                                <Login />
+                            </Modal> }
             </>
         )
 }

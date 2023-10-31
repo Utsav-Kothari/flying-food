@@ -44,7 +44,7 @@ const Menu = () => {
                             <div className="text-md font-semibold"> Rs.{item?.card?.info?.price/100}</div>
                             <div className="text-md font-medium text-yellow-600">{item?.card?.info?.itemAttribute?.vegClassifier}</div>
                             <div>
-                                <button onClick={() => handleAddItem(item)} className="p-1 m-0.5 bg-blue-200 rounded-md font-semibold ">Add to Cart</button>
+                                <button onClick={() => handleAddItem(item)} className="p-1 m-0.5 bg-blue-200 rounded-md font-semibold hover:bg-blue-400 ">Add to Cart</button>
                             </div>
                         </li>)}
                     </ul>
